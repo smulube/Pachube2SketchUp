@@ -40,19 +40,21 @@ function setMsg(locationX,tempstring){
     elem.innerHTML = tempstring;
 }
 
+console.log("Message logged to the console");
+
 setMsg('outputText',"Please select a Pachube Environment to Activate");
 
 
 function leapTime(val){
-if (val == 0){
-currentPos = historyLength-1;
+  if (val == 0){
+    currentPos = historyLength-1;
 
-} else {
-currentPos = 0;
-}
-calcTime();
-document.getElementById("curVal").value = currentTime;
-setVal();
+  } else {
+    currentPos = 0;
+  }
+  calcTime();
+  document.getElementById("curVal").value = currentTime;
+  setVal();
 }
 
 
@@ -67,6 +69,7 @@ function changeTime(value){
        // setMsg('outputText','Date out of Range');
     }
 }
+
 function activateEnv() {
 	setMsg('outputText',"Loading Pachube Data..");
     timeIndex = -1;
@@ -76,10 +79,12 @@ function activateEnv() {
     query = 'skp:activateEnv@' + tempA;
     window.location.href = query;
 }
+
 function SU (where, values){
     query = 'skp:'+where+'@' + values;
     window.location.href = query;
 }
+
 function loadJSON(url) {
   alert("TEST CALL ONE");
     //alert ("you have loaded Json: " + jsonCalled++);
@@ -89,6 +94,7 @@ function loadJSON(url) {
     newScript.src = url;
     headID.appendChild(newScript);
 }    
+
 function calcTime(){
     //quarters = (currentPos % 4) * 15;
     //hours = (currentPos - (currentPos % 4)) / 4;
@@ -102,6 +108,7 @@ function calcTime(){
     //setMsg('outputText',year+month+day+hour+minute);
     currentTime = minute+":"+hour+", " +day+"-"+month+"-"+year;
 }
+
 function getJSON(feedID, streamID, NewObjNum, NewTotObjNum){
 
     showLoader();
@@ -125,6 +132,7 @@ function getJSON(feedID, streamID, NewObjNum, NewTotObjNum){
     
     alert('http://api.pachube.com/feeds/'+ feedID +'.json?callback=getPachubeJSON');
 }
+
 function getHistory(){
   
     loadJSON("http://apps.pachube.com/history/archive_json.php?f="+dataFeedNumber+"&d="+dataStreamNumber+"&callback=getPachubeHistory");
@@ -134,8 +142,7 @@ function getHistory(){
 // javascript Dump function
 // from stackoverflow :http://stackoverflow.com/questions/130404/javascript-data-formatting-pretty-printer
 
-function DumpObject(obj)
-{
+function DumpObject(obj) {
   var od = new Object;
   var result = "";
   var len = 0;
@@ -168,7 +175,7 @@ function DumpObject(obj)
 
 
 function getPachubeJSON(env){
-alert("getPachubeJsonCalled");
+  alert("getPachubeJsonCalled");
 
     pJ =  eval(env);
        
@@ -201,6 +208,7 @@ alert("getPachubeJsonCalled");
     }
     alert("getPachubeJsonCall Finished");
 }
+
 function getPachubeHistory(env){
     pJ =  eval(env);
     pHistory[curObjNum] = new Array();
@@ -220,6 +228,7 @@ function getPachubeHistory(env){
     }
     SU('history',tempA);
 }
+
 function isNumeric(elem, helperMsg){
     var numericExpression = /^[0-9]+$/;
     if(elem.match(numericExpression)){
@@ -230,6 +239,7 @@ function isNumeric(elem, helperMsg){
         return false;
     }
 }
+
 function setFeedInfo(tempFeedID, tempStreamID){
     tempFeedIDString = tempFeedID.value+'';
     tempStreamIDString = tempStreamID.value+'';
@@ -244,18 +254,21 @@ function setFeedInfo(tempFeedID, tempStreamID){
         }
     }
 }
+
 function setStaticObject(){
     feedStream = new Array();
     feedStream[0] = 0;
     feedStream[1] = 0;
     SU('setSensor', feedStream);
 }
+
 function setInitialTime(){
     currentPos = historyLength - 1;
     calcTime();
     document.getElementById("curVal").value = currentTime;
     setVal();
 }
+
 function setVal() {
  pHistory[0] = new Array();
     var ar = new Array();
@@ -289,6 +302,7 @@ function setVal() {
     document.getElementById("history").style.display = "block";
     SU('setValues',ar);
 }
+
 function createEnv(envLabel){
     envLabel = envLabel.value+'';
     if (envLabel == "Environment Label"){
@@ -297,9 +311,11 @@ function createEnv(envLabel){
     } 
     SU('createEnv',envLabel);
 }
+
 function showLoader(){
     document.getElementById('loader').style.visibility = 'visible'; 
 }
+
 function hideLoader(){
     document.getElementById('loader').style.visibility = 'hidden'; 
 }
